@@ -1,0 +1,16 @@
+{
+	"name": "web-graphics",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "onchange -i \"**/*.md\" -- npx @marp-team/marp-cli main.md -o index.html --html",
+		"serve": "live-server --watch=index.html"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"onchange": "^7.1.0"
+	}
+}
