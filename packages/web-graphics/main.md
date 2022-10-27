@@ -5,6 +5,8 @@ class: invert
 theme: gaia
 ---
 
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 <div class="container">
 <h1>3D Web Graphics</h1>
 <p>they're heaps fun</p>
@@ -17,23 +19,44 @@ theme: gaia
 
 ---
 # Why Go 3D
+<div class="container row">
 
-- Flair
-- Visualization
+<div>
+
+- Function
 	- Navigation
 	- Shopping
-	- Architecture
-- Metaverse?
+- Flair
+	- Marketing
+- Fun
+	- Creative Coding
+	- Games
 
----
-# Abstraction Layers
-
-</br>
-<div class="container">
-<img src="images/plane.png" style="width:50%;"/>
 </div>
 
-1. Mesh
+
+<div class="container row" style="width:60%;">
+	<div style="padding-right:2em;" class="container col">
+	<img style="width:100%;" src="images/google-maps.webp"/>
+	<img style="width:100%;" src="images/live-coding.png"/>
+	</div>
+	<iframe style="width:60%;" src="https://todoesdata.com/en/"></iframe>
+</div>
+</div>
+
+---
+
+# Getting Started
+
+<div class="container row">
+<div style="width:50%;padding-right:1em;">
+
+- No Code
+```html
+<model-viewer src="shared-assets/models/NeilArmstrong.glb"/>
+```
+
+- Minimal Code
 ```js
 var geometry = new PlaneGeometry( 1, 1 );
 var material = new MeshBasicMaterial( { color: "cyan" } );
@@ -41,14 +64,185 @@ var mesh = new Mesh( geometry, material );
 
 scene.add( mesh );
 ```
+</div>
 
-2. Uniforms & Attributes
-	- Uniforms:
-		- Per Mesh
-		- ie color, position
-	- Attributes:
-		- Per Vertex
-		- ie triangle indices
+<div style="width:50%;height:100%;">
+<iframe src="https://modelviewer.dev"></iframe>
+</div>
+</div>
+
+---
+
+# Frameworks
+
+<div class="container row">
+
+<div>
+
+Considerations
+- Existing stack
+- Paradigms
+- Performance
+	- Time & Space
+</div>
+
+<div class="container row" style="width:50%;height:100%;">
+<div class="container col">
+wasm
+<img src="images/logos/unity.png"/>
+<img src="images/logos/bevy.png"/>
+</div>
+<div class="container col">
+js
+<img src="images/logos/three.png"/>
+<img src="images/logos/babylon.png"/>
+</div>
+<div class="container col">
+no-code
+<img src="images/logos/playcanvas.png"/>
+<img src="images/logos/8th-wall.jpg"/>
+</div>
+</div>
+
+---
+
+# Frameworks - Unity
+<div class="container row">
+<div>
+
+- AAA Game engine
+- Pros
+	- Easy
+	- Fully Features
+	- Native & Web
+- Cons
+	- Spaghetti Code
+	- Proprietary
+	- Big & Slow, > 3MB
+</div>
+
+<div style="width:60%;padding-top:1em;">
+
+```cs
+public class Spinner : MonoBehaviour{	
+
+	public float rotateSpeed = 10;
+
+	void Update() {
+			transform.Rotate( rotateSpeed * Time.deltaTime, 0, 0 );
+	}
+}
+```
+
+</div>
+
+--- 
+# Frameworks - Bevy
+<div class="container row">
+<div>
+
+- Rust ECS Framework
+- Pros
+	- Performant
+	- Testable
+	- Rust is cool
+- Cons
+	- No Heirachy
+	- Strict Language
+	- New Framewwork
+</div>
+<div style="width:60%; padding-top:1em;">
+
+```rust
+struct Rotator { speed: f32 }
+
+fn rotate_system(
+	time: Res<Time>, 
+	mut query: Query<(&Rotator, &mut Transform)>
+	) {
+	
+	for (rotator, mut transform) in &mut query {
+		transform.rotate_y(rotator.speed * time.delta_seconds());
+	}
+}
+```
+</div>
+
+---
+
+# Frameworks - React Three Fiber
+
+<div class="container row">
+<div>
+
+- Custom React Renderer
+- Pros
+	- Tiny ~150KB
+	- Declarative
+	- Ecosystem
+- Cons
+	- Performance? - indirection
+	- Math verbosity
+	- JS Only
+
+
+</div>
+<div style="width:60%;padding-top:1em;">
+
+```typescript
+function SpinningBox({speed}) {
+
+	const ref = useRef()
+	
+	useFrame((state, delta) => 
+		ref.current.rotation.y += speed * delta)
+	
+	return (
+		<mesh ref={ref}>
+			<boxGeometry>
+			<meshStandardMaterial/>
+		</mesh>
+	)
+}
+```
+</div>
+
+</div>
+
+
+---
+
+# Just For Fun
+
+<div class="container row">
+
+- Creative Coding
+	- p5.js
+- Games
+	- GitHub GameOff
+		- Ends 02/12/22
+<iframe style="width:50%;" src="https://editor.p5js.org/chantey/full/6xro4JN6C"></iframe>
+</div>
+
+---
+
+# How It Works
+<div class="container row">
+
+<div>
+
+- WebGL
+	- *Rasterization* Engine
+	- Vertex & Fragment shaders
+</div>
+
+![rasterization](images/rasterization.png)
+</div>
+
+</div>
+
+---
+# How It Works
 
 ```js
 const vertices = new Float32Array([
@@ -71,126 +265,53 @@ const material = new MeshBasicMaterial({
 })
 ```
 
-3. Rasterization
-	- WebGL
-
-
 ---
+# How It Works
 
-# Considerations
-- Performance
-	- Code
-	- People
-- Architecture
----
+```javascript
+  var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  var program = createProgram(gl, vertexShader, fragmentShader);
+  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  var positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  var positions = [
+    0, 0,
+    0, 0.5,
+    0.7, 0,
+  ];
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  var vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  gl.enableVertexAttribArray(positionAttributeLocation);
+  var size = 2;
+  var type = gl.FLOAT;
+  var normalize = false;
+  var stride = 0;
+  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  gl.clearColor(0, 0, 0, 0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.useProgram(program);
+  gl.bindVertexArray(vao);
+  var primitiveType = gl.TRIANGLES;
+  var offset = 0;
+  var count = 3;
+  gl.drawArrays(primitiveType, offset, count);
 
-
-# Frameworks
-
-<div>
-</div>
-<div class="container row">
-<div class="container" style="padding:2em;'">
-wasm
-<img src="images/logos/unity.png"/>
-<img src="images/logos/bevy.png"/>
-</div>
-<div class="container" style="padding:2em;'">
-js
-<img src="images/logos/three.png"/>
-<img src="images/logos/babylon.png"/>
-</div>
-<div class="container" style="padding:2em;'">
-no-code
-<img src="images/logos/playcanvas.png"/>
-<img src="images/logos/8th-wall.jpg"/>
-</div>
-</div>
-
----
-
-# Frameworks - Unity
-
-- AAA Game engine
-
-| Pros           | Cons               |
-| -------------- | ------------------ |
-| Intuitive      | Proprietary        |
-| Fully Featured | Spaghetti Patterns |
-| Native & Web   |                    |
-
-```cs
-public class Spinner : MonoBehaviour{	
-
-	public float rotateSpeed = 10;
-
-	void Update() {
-			transform.Rotate( rotateSpeed * Time.deltaTime, 0, 0 );
-	}
-}
 ```
---- 
-# Frameworks - Bevy
 
-- Rust ECS Framework
-
-| Pros         | Cons            |
-| ------------ | --------------- |
-| Performant   | No Heirachy     |
-| Testable     | Strict language |
-| Rust is cool | New Framework   |
-
-```rust
-struct Rotator { speed: f32 }
-
-fn rotate_system(time: Res<Time>, mut query: Query<(&Rotator, &mut Transform)>) {
-	
-	for (rotator, mut transform) in &mut query {
-		transform.rotate_y(rotator.speed * time.delta_seconds());
-	}
-}
-```
----
-
-# Frameworks - React Three Fiber
-
-- Custom React Renderer
-  
-| Pros        | Cons                      |
-| ----------- | ------------------------- |
-| Ecosystem   | Performance - indirection |
-| Declarative | Math Verbosity            |
-| Debuggable  |                           |
-
-```typescript
-function SpinningBox({speed}) {
-
-	const ref = useRef()
-	
-	useFrame((state, delta) => 
-		ref.current.rotation.y += speed * delta)
-	
-	return (
-		<mesh ref={ref}>
-			<boxGeometry>
-			<meshStandardMaterial/>
-		</mesh>
-	)
-}
-```
----
-
-# Creative Coding
-<br/>
-<iframe src="https://editor.p5js.org/chantey/full/6xro4JN6C"></iframe>
 
 ---
 # The Future
 - Univeral Scene Description
-- 
+- WebXR, WebGPU
+- Native, web, hybrid?
 
 ---
 # Reference
+- [WebGL2 Fundamentals](https://webgl2fundamentals.org/)
+
 - [The Coding Train](https://www.youtube.com/c/TheCodingTrain)
 
 
@@ -202,7 +323,7 @@ section{
 	width:100%;
 	height:100%;
 	overflow-y:auto;
-	font-size:2em;
+	font-size:1.6em;
 }
 body::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
@@ -210,6 +331,7 @@ body::-webkit-scrollbar {
 
 iframe{
 	width:100%;
+	/* min-height:50vh; */
 	height:100%;
 	border:none;
 }
@@ -221,7 +343,7 @@ iframe{
 	display:flex;
 	flex-direction:column;
 	align-items:center;
-	justify-content:center;
+	justify-content:space-between;
 	width:100%;
 	height:100%;
 	&img{
@@ -236,6 +358,12 @@ img{
 
 .row{
 	flex-direction:row;
+	align-items:start;
+}
+.col{
+	justify-content:start; 
+	gap:1em;
+	padding-top:2em;
 }
 .half-width{
 	width:50%;
