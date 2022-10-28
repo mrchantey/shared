@@ -7,9 +7,9 @@ theme: gaia
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-<div class="container">
-<h1>3D Web Graphics</h1>
-<p>they're heaps fun</p>
+<div class="container" style="justify-content:center;">
+<h1>The 3D Web</h1>
+<p>For fun and profit</p>
 <div>
 <br/>
 <div style="width:16em; height:9em;">
@@ -40,38 +40,42 @@ theme: gaia
 	<img style="width:100%;" src="images/google-maps.webp"/>
 	<img style="width:100%;" src="images/live-coding.png"/>
 	</div>
-	<iframe style="width:60%;" src="https://todoesdata.com/en/"></iframe>
+	<iframe style="width:60%;" src="https://blobmixer.14islands.com/"></iframe>
 </div>
 </div>
 
 ---
 
-# Getting Started
+# Hello 3D
 
 <div class="container row">
-<div style="width:50%;padding-right:1em;">
 
-- No Code
+<div style="width:70%;padding-right:1em;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+
+- Model Viewer
+- HTML only
+
+<div>
+
 ```html
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 <model-viewer src="shared-assets/models/NeilArmstrong.glb"/>
 ```
 
-- Minimal Code
-```js
-var geometry = new PlaneGeometry( 1, 1 );
-var material = new MeshBasicMaterial( { color: "cyan" } );
-var mesh = new Mesh( geometry, material );
-
-scene.add( mesh );
-```
 </div>
 
-<div style="width:50%;height:100%;">
+</div>
+
+<div style="width:30%;height:100%;">
 <iframe src="https://modelviewer.dev"></iframe>
 </div>
 </div>
 
----
+--- 
+
+
+
 
 # Frameworks
 
@@ -81,9 +85,12 @@ scene.add( mesh );
 
 Considerations
 - Existing stack
-- Paradigms
-- Performance
-	- Time & Space
+	- Language
+	- Paradigm
+- Requirements
+	- Size
+	- Speed
+	- Artist tooling
 </div>
 
 <div class="container row" style="width:50%;height:100%;">
@@ -118,10 +125,12 @@ no-code
 - Cons
 	- Spaghetti Code
 	- Proprietary
-	- Big & Slow, > 3MB
+	- Big & Slow load, > 3MB
+
 </div>
 
-<div style="width:60%;padding-top:1em;">
+<div class="col-right" style="width:60%;">
+<img src="images/unity.jpg" style="width:50%;"/>
 
 ```cs
 public class Spinner : MonoBehaviour{	
@@ -133,7 +142,7 @@ public class Spinner : MonoBehaviour{
 	}
 }
 ```
-
+</div>
 </div>
 
 --- 
@@ -151,7 +160,8 @@ public class Spinner : MonoBehaviour{
 	- Strict Language
 	- New Framewwork
 </div>
-<div style="width:60%; padding-top:1em;">
+<div class="col-right" style="width:60%;">
+<img class="left" src="images/ecs.png" style="width:50%;"/>
 
 ```rust
 struct Rotator { speed: f32 }
@@ -167,6 +177,7 @@ fn rotate_system(
 }
 ```
 </div>
+</div>
 
 ---
 
@@ -178,16 +189,17 @@ fn rotate_system(
 - Custom React Renderer
 - Pros
 	- Tiny ~150KB
-	- Declarative
+	- Declarative JSX
 	- Ecosystem
 - Cons
-	- Performance? - indirection
+	- Unconventional
 	- Math verbosity
-	- JS Only
-
+	- native?
 
 </div>
-<div style="width:60%;padding-top:1em;">
+<div class="col-right" style="width:60%;">
+
+<img src="images/logos/react.png" style="width:10%;">
 
 ```typescript
 function SpinningBox({speed}) {
@@ -212,7 +224,7 @@ function SpinningBox({speed}) {
 
 ---
 
-# Just For Fun
+# Next Steps
 
 <div class="container row">
 
@@ -223,6 +235,24 @@ function SpinningBox({speed}) {
 		- Ends 02/12/22
 <iframe style="width:50%;" src="https://editor.p5js.org/chantey/full/6xro4JN6C"></iframe>
 </div>
+
+
+---
+# Observations
+
+- Embedded 3D
+	- GLTF Extensions, USD
+	- The Myspace problem
+	- 3D tabs, iframes?
+- UX challenges
+- Tech
+	- WebXR, WebGPU
+	- Native, web, hybrid?
+
+---
+# Reference
+- [The Coding Train](https://www.youtube.com/c/TheCodingTrain)
+- [WebGL2 Fundamentals](https://webgl2fundamentals.org/)
 
 ---
 
@@ -302,21 +332,11 @@ const material = new MeshBasicMaterial({
 ```
 
 
----
-# The Future
-- Univeral Scene Description
-- WebXR, WebGPU
-- Native, web, hybrid?
-
----
-# Reference
-- [WebGL2 Fundamentals](https://webgl2fundamentals.org/)
-
-- [The Coding Train](https://www.youtube.com/c/TheCodingTrain)
-
-
 <style>
 /* marp slide */
+
+
+
 section{
 	display:flex;
 	flex-direction:column;
@@ -338,7 +358,19 @@ iframe{
 /* h1, pre{
 	align-self:start;
 } */
-
+.col-left{
+	display:flex;
+	flex-direction:column;
+	align-items:flex-start;
+	justify-content:space-between;
+}
+.col-right{
+	padding-top:1em;
+	display:flex;
+	flex-direction:column;
+	align-items:flex-end;
+	justify-content:space-between;
+}
 .container{
 	display:flex;
 	flex-direction:column;
