@@ -158,7 +158,7 @@ public class Spinner : MonoBehaviour{
 - Cons
 	- No Heirachy
 	- Strict Language
-	- New Framewwork
+	- New Framework
 </div>
 <div class="col-right" style="width:60%;">
 <img class="left" src="images/ecs.png" style="width:50%;"/>
@@ -230,6 +230,7 @@ function SpinningBox({speed}) {
 
 - Creative Coding
 	- p5.js
+	- Generative Art
 - Games
 	- GitHub GameOff
 		- Ends 02/12/22
@@ -243,8 +244,8 @@ function SpinningBox({speed}) {
 - Embedded 3D
 	- GLTF Extensions, USD
 	- The Myspace problem
-	- 3D tabs, iframes?
-- UX challenges
+	- 3D tabs & iframes?
+- Spatial Computing
 - Tech
 	- WebXR, WebGPU
 	- Native, web, hybrid?
