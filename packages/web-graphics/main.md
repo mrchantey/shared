@@ -50,7 +50,7 @@ theme: gaia
 
 <div class="container row">
 
-<div style="width:70%;padding-right:1em;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+<div style="width:70%;padding-right:1em;display:flex;flex-direction:column;height:100%;">
 
 - Model Viewer
 - HTML only
@@ -120,7 +120,7 @@ no-code
 - AAA Game engine
 - Pros
 	- Easy
-	- Fully Features
+	- Fully Featured
 	- Native & Web
 - Cons
 	- Spaghetti Code
@@ -191,8 +191,8 @@ fn rotate_system(
 	- Tiny ~150KB
 	- Declarative JSX
 	- Ecosystem
-- Cons
-	- Unconventional
+- Cons - Javascript
+	- Performance
 	- Math verbosity
 	- native?
 
@@ -229,10 +229,11 @@ function SpinningBox({speed}) {
 <div class="container row">
 
 - Creative Coding
-	- p5.js
 	- Generative Art
-- Games
-	- GitHub GameOff
+	- p5.js
+- Game Jams
+	- GitHub GameOff 22
+		- *Cliche*
 		- Ends 02/12/22
 <iframe style="width:50%;" src="https://editor.p5js.org/chantey/full/6xro4JN6C"></iframe>
 </div>
