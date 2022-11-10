@@ -224,48 +224,22 @@ function SpinningBox({speed}) {
 
 ---
 
-# Next Steps
-
-<div class="container row">
-
-- Creative Coding
-	- Generative Art
-	- p5.js
-- Game Jams
-	- GitHub GameOff 22
-		- *Cliche*
-		- Ends 02/12/22
-<iframe style="width:50%;" src="https://editor.p5js.org/chantey/full/6xro4JN6C"></iframe>
-</div>
-
-
----
-# Observations
-
-- Embedded 3D
-	- GLTF Extensions, USD
-	- The Myspace problem
-	- 3D tabs & iframes?
-- Spatial Computing
-- Tech
-	- WebXR, WebGPU
-	- Native, web, hybrid?
-
----
-# Reference
-- [The Coding Train](https://www.youtube.com/c/TheCodingTrain)
-- [WebGL2 Fundamentals](https://webgl2fundamentals.org/)
-
----
-
-# How It Works
+# How It Works - Rasterization
 <div class="container row">
 
 <div>
 
 - WebGL
-	- *Rasterization* Engine
-	- Vertex & Fragment shaders
+	- Two Steps
+		- Vertex shaders
+		- Fragment shaders
+	- Three data forms
+		- uniforms
+			- mesh position, texture...
+		- attributes
+			- vertex position, color, uv...
+		- varyings
+			- vertex -> fragment
 </div>
 
 ![rasterization](images/rasterization.png)
@@ -274,18 +248,22 @@ function SpinningBox({speed}) {
 </div>
 
 ---
-# How It Works
+# How It Works - Meshes
 
 ```js
 const vertices = new Float32Array([
-//		x,  y,  z
-			1,  -1, 0,
-			1,  1,  0, 
-			-1, -1, 0,
-			-1, 1,  0
+//     x   y   z
+       1, -1,  0,
+       1,  1,  0, 
+      -1, -1,  0,
+      -1,  1,  0
 ])
 
+//     3 - 1
+//     |   |
+//     2 - 0
 const indices = new Uint16Array([0, 1, 2, 3, 2, 1])
+
 const geometry = new BufferGeometry()
 geometry.setAttribute("position", new BufferAttribute(vertices, 3))
 geometry.setAttribute("index", new BufferAttribute(indices, 1))
@@ -298,7 +276,34 @@ const material = new MeshBasicMaterial({
 ```
 
 ---
-# How It Works
+
+# How It Works - Shaders
+
+```glsl
+#### VERTEX ####
+in vec4 a_position;               # attribute
+in vec3 a_color;                  # attribute
+uniform vec4 u_matrix;            # uniform
+out vec3 v_color;                 # varying
+ 
+void main() {
+  gl_Position = u_matrix * a_position;
+  v_color = a_color;
+}
+
+#### FRAGMENT ####
+in vec3 v_color;                  # varying
+out vec4 o_color;                 # output
+ 
+void main() {
+  o_color = v_color;
+}
+
+```
+---
+
+
+# How It Works - WebGL
 
 ```javascript
   var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
@@ -333,6 +338,40 @@ const material = new MeshBasicMaterial({
 
 ```
 
+---
+
+# Next Steps
+
+<div class="container row">
+
+- Creative Coding
+	- Generative Art
+	- p5.js
+- Game Jams
+	- GitHub GameOff 22
+		- Ends 02/12/22
+		- *Cliche*
+		- [you're on a roll!](https://mrchantey.github.io/forky/wasm/)
+<iframe style="width:50%;" src="https://editor.p5js.org/chantey/full/6xro4JN6C"></iframe>
+</div>
+
+---
+# Future
+
+- Embedded 3D
+	- WASM <->
+	- GLTF Extensions
+	- The Myspace problem
+- Spatial Computing
+- Tech
+	- WebXR, WebGPU
+	- Native, web, hybrid?
+
+---
+# Reference
+- [The Coding Train](https://www.youtube.com/c/TheCodingTrain)
+- [WebGL2 Fundamentals](https://webgl2fundamentals.org/)
+
 
 <style>
 /* marp slide */
@@ -344,7 +383,7 @@ section{
 	flex-direction:column;
 	width:100%;
 	height:100%;
-	overflow-y:auto;
+	/* overflow-y:auto; */
 	font-size:1.6em;
 }
 body::-webkit-scrollbar {
